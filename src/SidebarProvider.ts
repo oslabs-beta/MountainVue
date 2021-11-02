@@ -13,11 +13,11 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     webviewView.webview.options = {
       // Allow scripts in the webview
       enableScripts: true,
-
       localResourceRoots: [this._extensionUri],
     };
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
 
     webviewView.webview.onDidReceiveMessage(async (data) => {
       switch (data.type) {
@@ -45,19 +45,19 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   }
 
   private _getHtmlForWebview(webview: vscode.Webview) {
-    // const styleResetUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
-    // );
-    // const styleMainUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
-    // );
+    const styleResetUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
+    );
+    const styleMainUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
+    );
 
-    // const scriptUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.js")
-    // );
-    // const styleVSCodeUri = webview.asWebviewUri(
-    //   vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
-    // );
+    const scriptUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.js")
+    );
+    const styleVSCodeUri = webview.asWebviewUri(
+      vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
+    );
 
     // Use a nonce to only allow a specific script to be run.
     const nonce = getNonce();
@@ -74,10 +74,12 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       webview.cspSource
     }; script-src 'nonce-${nonce}';">
 				<meta name="viewport" content="width=device-width, initial-scale=1.0">
-				
+				<link href="${styleResetUri}" rel="stylesheet">
+        <link href="${styleVSCodeUri}" rel="stylesheet">
+        <link href="${styleMainUri}" rel="stylesheet">
 			</head>
       <body>
-				
+        <script nonce="${nonce}" src="${scriptUri}"></script>
 			</body>
 			</html>`;
   }

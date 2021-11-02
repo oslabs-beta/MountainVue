@@ -10,7 +10,7 @@ export const activate = (context: vscode.ExtensionContext): void => {
 	// This line of code will only be executed once when your extension is activated
 	//console.log('Congratulations, your extension "mountainvue" is now active!');
 
-		const sidebarProvider = new SidebarProvider(context.extensionUri);
+	const sidebarProvider = new SidebarProvider(context.extensionUri);
   	context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       "MV-sidebar",
