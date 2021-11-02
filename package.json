@@ -1,6 +1,7 @@
 {
   "name": "mountainvue",
 	"displayName": "MountainVue",
+	"publisher": "MountainVue",
 	"description": "TBA",
 	"version": "0.0.1",
 	"engines": {
@@ -14,12 +15,15 @@
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
-		"commands": [
-			{
-				"command": "mountainvue.helloWorld",
-				"title": "Hello World"
-			}
-		]
+		"viewsContainer": {
+			"activitybar": [
+				{
+					"id": "mountain-vue",
+					"title": "MV",
+					"icon": "resources/mv.svg"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run package",
