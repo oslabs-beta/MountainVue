@@ -1,5 +1,5 @@
 {
-  "name": "mountainvue",
+	"name": "mountainvue",
 	"displayName": "MountainVue",
 	"publisher": "MountainVue",
 	"description": "TBA",
@@ -11,7 +11,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:mountainvue.helloWorld"
+		"onCommand:mountainvue.helloWorld"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
