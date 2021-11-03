@@ -1,3 +1,4 @@
+// generates unique ID
 export function getNonce() {
   let text = "";
   const possible =
