@@ -11,36 +11,42 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:mountainvue.helloWorld",
+    "onCommand:mountainvue.emptyWorkspace",
+    "onCommand:mountainvue.askQuestion",
     "onView:mountainvue-sidebar"
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "viewsContainer": {
+    "viewsContainers": {
       "activitybar": [
         {
-          "id": "mountainvue-sidebar-view",
+          "id": "mountainvue-sidebar",
           "title": "MountainVue",
-          "icon": "static/media/mv.svg"
+          "icon": "media/mv.svg"
         }
       ]
     },
     "views": {
-      "mountainvue-sidebar-view": [
+      "mountainvue-sidebar": [
         {
           "type": "webview",
           "id": "mountainvue-sidebar",
           "name": "MountainVue",
-          "icon": "static/media/mv.svg",
+          "icon": "media/mv.svg",
           "contextualTitle": "MountainVue"
         }
       ]
     },
     "commands": [
       {
-        "command": "moutainvue.emptyWorkspace",
+        "command": "mountainvue.emptyWorkspace",
         "category": "MountainVue",
-        "title": "Empty Workspace"
+        "title": "emptyWorkspace"
+      },
+      {
+        "command": "mountainvue.askQuestion",
+        "category": "MountainVue",
+        "title": "Ask Question"
       }
     ]
   },

@@ -3,5 +3,5 @@ dist
 node_modules
 .vscode-test/
 *.vsix
-.DS-store
+.DS_Store
 package-lock.json
