@@ -5,27 +5,18 @@ import { SidebarProvider } from './SidebarProvider';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
-export const activate = (context: vscode.ExtensionContext): void => {
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	//console.log('Congratulations, your extension "mountainvue" is now active!');
-
+export const activate = (context: vscode.ExtensionContext) => {
 	const sidebarProvider = new SidebarProvider(context.extensionUri);
-  	context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(
-      "MV-sidebar",
-      sidebarProvider
-    )
+
+  context.subscriptions.push(
+		vscode.window.registerWebviewViewProvider("mountainvue-sidebar", sidebarProvider)
   );
 
-	let disposable = vscode.commands.registerCommand('mountainvue.helloWorld', () => {
+	let disposable = vscode.commands.registerCommand('mountainvue.emptyWorkspace', () => {
 		// The code you place here will be executed every time your command is executed
 		// Display a message box to the user
-		vscode.window.showInformationMessage('REBRAND');
+		vscode.window.showInformationMessage('Vue project directory not found');
 	});
-
-
-
 
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
