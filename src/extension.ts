@@ -3,20 +3,18 @@
 import * as vscode from 'vscode';
 import { SidebarProvider } from './SidebarProvider';
 
-
 export const activate = (context: vscode.ExtensionContext) => {
-	const sidebarProvider = new SidebarProvider(context.extensionUri);
+  const sidebarProvider = new SidebarProvider(context.extensionUri);
 
   context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider("mountainvue-sidebar", sidebarProvider)
+		vscode.window.registerWebviewViewProvider("mv-sidebar", sidebarProvider)
   );
 
-	context.subscriptions.push(vscode.commands.registerCommand('mountainvue.emptyWorkspace', () => {
-		vscode.window.showInformationMessage('Vue project directory not found');
+  context.subscriptions.push(
+		vscode.commands.registerCommand('mv.greeting', () => {
+			vscode.window.showInformationMessage('Hello from MV!!');
 		})
-	);
-
-
+  );
 };
 
 // this method is called when your extension is deactivated
