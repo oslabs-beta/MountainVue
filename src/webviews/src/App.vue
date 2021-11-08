@@ -1,7 +1,7 @@
 <template>
   <div>
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <p>TEST</p>
+    <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
+    <h1>VUE</h1>
   </div>
 </template>
 

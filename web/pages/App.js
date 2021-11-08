@@ -1,6 +1,9 @@
 import { createApp } from "vue";
-import App from "../../src/webviews/src/App.vue";
-import "../../src/webviews/src/registerServiceWorker";
-import store from "../../src/webviews/src/store";
+import App from "@/webviews/src/App.vue";
 
-createApp(App).use(store).mount("#app");
+createApp(App).mount("#app");
+
+// import Vue from "vue";
+// import App from "@/webviews/src/App.vue";
+
+// new Vue({ render: h => h(App) }).$mount("#app");
