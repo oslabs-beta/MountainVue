@@ -5,32 +5,31 @@
   "description": "TBA",
   "version": "0.0.1",
   "engines": {
-    "vscode": "^1.61.0"
+    "vscode": "^1.62.0"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "onCommand:mountainvue.emptyWorkspace",
-    "onCommand:mountainvue.askQuestion",
-    "onView:mountainvue-sidebar"
+    "onCommand:mv.greeting",
+    "onView:mv-sidebar"
   ],
   "main": "./dist/extension.js",
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
-          "id": "mountainvue-sidebar",
+          "id": "mv-sidebar-view",
           "title": "MountainVue",
           "icon": "media/mv.svg"
         }
       ]
     },
     "views": {
-      "mountainvue-sidebar": [
+      "mv-sidebar-view": [
         {
           "type": "webview",
-          "id": "mountainvue-sidebar",
+          "id": "mv-sidebar",
           "name": "MountainVue",
           "icon": "media/mv.svg",
           "contextualTitle": "MountainVue"
@@ -39,21 +38,16 @@
     },
     "commands": [
       {
-        "command": "mountainvue.emptyWorkspace",
-        "category": "MountainVue",
-        "title": "emptyWorkspace"
-      },
-      {
-        "command": "mountainvue.askQuestion",
-        "category": "MountainVue",
-        "title": "Ask Question"
+        "command": "mv.greeting",
+        "category": "TEST",
+        "title": "Hi MV"
       }
     ]
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "webpack",
-    "watch": "webpack --watch",
+    "watch": "concurrently \"rollup -c -w\" \"webpack --watch\"",
     "package": "webpack --mode production --devtool hidden-source-map",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
@@ -62,19 +56,42 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@rollup/plugin-alias": "^3.1.8",
+    "@rollup/plugin-image": "^2.1.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.0.6",
+    "@rollup/plugin-replace": "^3.0.0",
     "@types/glob": "^7.1.4",
     "@types/mocha": "^9.0.0",
     "@types/node": "14.x",
-    "@types/vscode": "^1.61.0",
+    "@types/vscode": "^1.62.0",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "@vscode/test-electron": "^1.6.2",
+    "concurrently": "^6.3.0",
     "eslint": "^8.1.0",
+    "generate-source-map": "^0.0.5",
     "glob": "^7.1.7",
     "mocha": "^9.1.3",
+    "node-sass": "^6.0.1",
+    "postcss-import": "^14.0.2",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-esbuild": "^4.6.0",
+    "rollup-plugin-filesize": "^9.1.1",
+    "rollup-plugin-node-builtins": "^2.1.2",
+    "rollup-plugin-node-globals": "^1.4.0",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-require-context": "^1.0.1",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-vue": "^6.0.0",
+    "sass": "^1.43.4",
     "ts-loader": "^9.2.5",
     "typescript": "^4.4.4",
     "webpack": "^5.52.1",
     "webpack-cli": "^4.8.0"
+  },
+  "dependencies": {
+    "vue": "^2.6.14"
   }
 }

@@ -18,25 +18,25 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
 
-    webviewView.webview.onDidReceiveMessage(async (data) => {
-      switch (data.type) {
-        case "onInfo": {
-          if (!data.value) {
-            return;
-          }
-          vscode.window.showInformationMessage(data.value);
-          break;
-        }
-        case "onError": {
-          if (!data.value) {
-            return;
-          }
-          vscode.window.showErrorMessage(data.value);
-          break;
-        }
+    // webviewView.webview.onDidReceiveMessage(async (data) => {
+    //   switch (data.type) {
+    //     case "onInfo": {
+    //       if (!data.value) {
+    //         return;
+    //       }
+    //       vscode.window.showInformationMessage(data.value);
+    //       break;
+    //     }
+    //     case "onError": {
+    //       if (!data.value) {
+    //         return;
+    //       }
+    //       vscode.window.showErrorMessage(data.value);
+    //       break;
+    //     }
     
-      }
-    });
+    //   }
+    // });
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -53,44 +53,43 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     );
 
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.css")
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/app.css")
     );
 
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/sidebar.js")
+      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/app.js")
   );
     
 
     // Use a nonce to only allow a specific script to be run.
     const nonce = getNonce();
 
-    return `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <!--
-        Use a content security policy to only allow loading images from https or from our extension directory,
-        and only allow scripts that have a specific nonce.
-      -->
-      <meta http-equiv="Content-Security-Policy" content="img-src https: data:; style-src 'unsafe-inline' ${
-        webview.cspSource
-      }; script-src 'nonce-${nonce}';">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link href="${styleResetUri}" rel="stylesheet">
-      <link href="${styleVSCodeUri}" rel="stylesheet">
-      <link href="${styleMainUri}" rel="stylesheet">
-    </head>
-    <body>
-      <script nonce="${nonce}" src="${scriptUri}"></script>
-    </body>
-    </html>;
+    return `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <!--
+        <meta
+          http-equiv="Content-Security-Policy"
+          content="img-src https: data:;
+          style-src 'unsafe-inline' ${webview.cspSource};
+          script-src 'nonce-${nonce}';"
+        >
+        -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="${styleResetUri}" rel="stylesheet">
+        <link href="${styleVSCodeUri}" rel="stylesheet">
+        <link href="${styleMainUri}" rel="stylesheet">
+        <script nonce="${nonce}">
+          const vscode = acquireVsCodeApi();
+        </script>
+      </head>
+      <body>
+        <div id="app"></div>
+        <script nonce="${nonce}" src="${scriptUri}"></script>
+      </body>
+      </html>
+    `;
   }
 }
-
-// below meta name
-// <link href="${styleResetUri}" rel="stylesheet">
-// <link href="${styleVSCodeUri}" rel="stylesheet">
-// <link href="${styleMainUri}" rel="stylesheet">
-
-// in body
-// <script nonce="${nonce}" src="${scriptUri}"></script>
