@@ -55,11 +55,17 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
       <html lang="en">
       <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none';
+          style-src 'unsafe-inline' ${webview.cspSource};
+          img-src ${webview.cspSource} https:;
+          script-src 'nonce-${nonce}';"
+        >
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="${styleResetUri}" rel="stylesheet">
         <link href="${styleVSCodeUri}" rel="stylesheet">
         <link href="${styleMainUri}" rel="stylesheet">
-        <title>Web Pages Panel</title>
+        <title>MV</title>
         <script nonce="${nonce}">
             const vscode = acquireVsCodeApi();
         </script>

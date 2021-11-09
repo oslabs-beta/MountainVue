@@ -41,13 +41,7 @@
         }
       ]
     },
-    "commands": [
-      {
-        "command": "mv.greeting",
-        "category": "TEST",
-        "title": "Hi MV"
-      }
-    ]
+    "commands": []
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

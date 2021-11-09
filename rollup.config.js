@@ -25,11 +25,11 @@ const postCssPlugins = [
 ];
 
 export default fs
-  .readdirSync(path.join(__dirname, 'web', 'pages'))
+  .readdirSync(path.join(__dirname, 'src', 'webviews', 'src', 'pages'))
   .map((input) => {
     const name = input.split('.')[0].toLowerCase();
     return {
-      input: `web/pages/${input}`,
+      input: `src/webviews/src/pages/${input}`,
       output: {
         file: `out/compiled/${name}.js`,
         format: 'iife',
