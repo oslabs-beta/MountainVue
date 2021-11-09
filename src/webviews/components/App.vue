@@ -1,16 +1,21 @@
 <template>
   <div>
-    <img alt="Vue logo" src="./assets/logo.png" />
+    <h1>{{ welcome }}</h1>
   </div>
 </template>
 
 <script>
-  export default {
+  export default  {
     name: "App",
+    data() {
+      return {
+        welcome: 'HELLO FROM VUE'
+      }
+    }
   };
 </script>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
   body {
     margin: 0;
   }
