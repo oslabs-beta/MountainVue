@@ -13,7 +13,7 @@ import replace from '@rollup/plugin-replace';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import requireContext from 'rollup-plugin-require-context';
 import { terser } from 'rollup-plugin-terser';
-import vue from 'rollup-plugin-vue';
+import vuePlugin from 'rollup-plugin-vue';
 import globals from 'rollup-plugin-node-globals';
 import builtins from 'rollup-plugin-node-builtins';
 import autoExternal from 'rollup-plugin-auto-external';
@@ -25,22 +25,21 @@ const postCssPlugins = [
 ];
 
 export default fs
-  .readdirSync(path.join(__dirname, 'web', 'pages'))
+  .readdirSync(path.join(__dirname, 'src', 'webviews', 'src', 'pages'))
   .map((input) => {
     const name = input.split('.')[0].toLowerCase();
     return {
-      input: `web/pages/${input}`,
+      input: `src/webviews/src/pages/${input}`,
       output: {
         file: `out/compiled/${name}.js`,
         format: 'iife',
         name: 'app',
         sourcemap: false,
         globals: {
-          'vue': 'Vue',
-        },
+          'vue': 'Vue'
+        }
       },
       plugins: [
-        autoExternal(),
         nodeResolve({
           jsnext: true,
           main: true,
@@ -49,7 +48,10 @@ export default fs
           preferBuiltins: false,
           dedupe: ['vue']
         }),
-        vue(),
+        autoExternal(),
+        vuePlugin({
+          css: false
+        }),
         commonjs(),
         globals(),
         builtins(),
@@ -67,7 +69,7 @@ export default fs
         }),
         requireContext(),
         replace({
-          ['process.env.NODE_ENV']: production ?
+          'process.env.NODE_ENV': production ?
             '"production"' : '"development"',
           preventAssignment: true,
         }),

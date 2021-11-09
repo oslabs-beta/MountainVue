@@ -2,10 +2,11 @@ import * as vscode from "vscode";
 import { getNonce } from "./getNonce";
 
 export class SidebarProvider implements vscode.WebviewViewProvider {
-  _view?: vscode.WebviewView;
-  _doc?: vscode.TextDocument;
+  // public static readonly viewType = 'mv-sidebar';
 
-  constructor(private readonly _extensionUri: vscode.Uri) {}
+  _view?: vscode.WebviewView;
+
+  constructor(private readonly _extensionUri: vscode.Uri) { }
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
@@ -13,30 +14,13 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     webviewView.webview.options = {
       // Allow scripts in the webview
       enableScripts: true,
-      localResourceRoots: [this._extensionUri],
+
+      localResourceRoots: [
+        this._extensionUri
+      ],
     };
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
-
-    // webviewView.webview.onDidReceiveMessage(async (data) => {
-    //   switch (data.type) {
-    //     case "onInfo": {
-    //       if (!data.value) {
-    //         return;
-    //       }
-    //       vscode.window.showInformationMessage(data.value);
-    //       break;
-    //     }
-    //     case "onError": {
-    //       if (!data.value) {
-    //         return;
-    //       }
-    //       vscode.window.showErrorMessage(data.value);
-    //       break;
-    //     }
-    
-    //   }
-    // });
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -45,50 +29,51 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
 
   private _getHtmlForWebview(webview: vscode.Webview) {
     const styleResetUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "media", "reset.css")
+      vscode.Uri.joinPath(
+        this._extensionUri, "media", "reset.css")
     );
 
     const styleVSCodeUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "media", "vscode.css")
+      vscode.Uri.joinPath(
+        this._extensionUri, "media", "vscode.css")
     );
 
     const styleMainUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/app.css")
+      vscode.Uri.joinPath(
+        this._extensionUri, "out", "compiled/app.css")
     );
 
     const scriptUri = webview.asWebviewUri(
-      vscode.Uri.joinPath(this._extensionUri, "out", "compiled/app.js")
-  );
-    
+      vscode.Uri.joinPath(
+        this._extensionUri, "out", "compiled/app.js")
+    );
 
-    // Use a nonce to only allow a specific script to be run.
     const nonce = getNonce();
 
     return `
       <!DOCTYPE html>
       <html lang="en">
       <head>
-        <meta charset="UTF-8">
-        <!--
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="img-src https: data:;
+        <meta charset="utf-8" />
+        <meta http-equiv="Content-Security-Policy"
+          content="default-src 'none';
           style-src 'unsafe-inline' ${webview.cspSource};
+          img-src ${webview.cspSource} https:;
           script-src 'nonce-${nonce}';"
         >
-        -->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="${styleResetUri}" rel="stylesheet">
         <link href="${styleVSCodeUri}" rel="stylesheet">
         <link href="${styleMainUri}" rel="stylesheet">
+        <title>MV</title>
         <script nonce="${nonce}">
-          const vscode = acquireVsCodeApi();
+            const vscode = acquireVsCodeApi();
         </script>
       </head>
-      <body>
-        <div id="app"></div>
-        <script nonce="${nonce}" src="${scriptUri}"></script>
-      </body>
+        <body>
+          <div id="app"></div>
+          <script src="${scriptUri}" nonce="${nonce}">
+        </body>
       </html>
     `;
   }

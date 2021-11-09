@@ -8,11 +8,16 @@
     "vscode": "^1.62.0"
   },
   "categories": [
-    "Other"
+    "Visualization"
+  ],
+  "keywords": [
+    "vue",
+    "vs code extension",
+    "component hierarchy",
+    "devtools"
   ],
   "activationEvents": [
-    "onCommand:mv.greeting",
-    "onView:mv-sidebar"
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -36,13 +41,7 @@
         }
       ]
     },
-    "commands": [
-      {
-        "command": "mv.greeting",
-        "category": "TEST",
-        "title": "Hi MV"
-      }
-    ]
+    "commands": []
   },
   "scripts": {
     "vscode:prepublish": "npm run package",

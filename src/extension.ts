@@ -9,12 +9,6 @@ export const activate = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
 		vscode.window.registerWebviewViewProvider("mv-sidebar", sidebarProvider)
   );
-
-  context.subscriptions.push(
-		vscode.commands.registerCommand('mv.greeting', () => {
-			vscode.window.showInformationMessage('Hello from MV!!');
-		})
-  );
 };
 
 // this method is called when your extension is deactivated
