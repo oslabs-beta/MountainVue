@@ -3,8 +3,18 @@
     <h2>Sean</h2>
     <label>Co-Founder</label>
     <div class="links">
-      <a href="/">LinkedIn</a>
-      <a href="/">GitHub</a>
+      <a
+        href="https://www.linkedin.com/in/seanleesw/"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/seanswlee"
+        target="_blank"
+      >
+        GitHub
+      </a>
     </div>
   </div>
 </template>

@@ -3,10 +3,19 @@
     <h2>Ryan</h2>
     <label>Co-Founder</label>
     <div class="links">
-      <a href="/">LinkedIn</a>
-      <a href="/">GitHub</a>
+      <a
+        href="https://www.linkedin.com/in/ryanlim3/"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/ryanlim1"
+        target="_blank"
+      >
+        GitHub
+      </a>
     </div>
-    
   </div>
 </template>
 

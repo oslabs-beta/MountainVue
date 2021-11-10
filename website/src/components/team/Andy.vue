@@ -3,8 +3,18 @@
     <h2>Andy</h2>
     <label>Mentor</label>
     <div class="links">
-      <a href="/">LinkedIn</a>
-      <a href="/">GitHub</a>
+      <a
+        href="https://www.linkedin.com/in/andy-tsou/"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/andytsou19"
+        target="_blank"
+      >
+        GitHub
+      </a>
     </div>
   </div>
 </template>

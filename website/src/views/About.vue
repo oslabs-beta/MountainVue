@@ -23,6 +23,7 @@ import Uni from '@/components/team/Uni.vue';
 
 export default {
   name: 'About',
+
   components: {
     Uni,
     Andy,
@@ -30,7 +31,13 @@ export default {
     Matt,
     Ryan,
     Sohee
-  }
+  },
+
+  // props: {
+  //   linkedInUrl: {
+  //     type: String,
+  //   }
+  // }
 };
 </script>
 
