@@ -3,7 +3,12 @@
     <h2>Uni</h2>
     <label>CEO</label>
     <div class="links">
-      <a href="/">Instagram</a>
+      <a
+        href="https://www.instagram.com/unithetroublemaker/"
+        target="_blank"
+      >
+        Instagram
+      </a>
     </div>
   </div>
 </template>

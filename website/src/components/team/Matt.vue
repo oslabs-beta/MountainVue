@@ -3,8 +3,18 @@
     <h2>Matt</h2>
     <label>Co-Founder</label>
     <div class="links">
-      <a href="/">LinkedIn</a>
-      <a href="/">GitHub</a>
+      <a
+        href="https://www.linkedin.com/in/matthew-huang/"
+        target="_blank"
+      >
+        LinkedIn
+      </a>
+      <a
+        href="https://github.com/matthewhuang24"
+        target="_blank"
+      >
+        GitHub
+      </a>
     </div>
   </div>
 </template>
