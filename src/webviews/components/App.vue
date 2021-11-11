@@ -1,21 +1,42 @@
 <template>
   <div>
-    <h1>{{ welcome }}</h1>
+    <img :src="logo" />
+    <div class="upload-container">
+      <input
+        class="upload-file"
+        ref="file"
+        type="file"
+        accept="application/JSON"
+      >
+      <button @click="uploadFile()">Upload</button>
+    </div>
   </div>
 </template>
 
 <script>
-  export default  {
-    name: "App",
-    data() {
-      return {
-        welcome: 'HELLO FROM VUE'
-      }
+import logo from '../img/logo.png';
+
+export default  {
+  name: 'App',
+
+  data() {
+    return {
+      logo,
     }
-  };
+  },
+
+  methods: {
+    uploadFile() {
+      const uploadBtn = this.$refs.file;
+      uploadBtn.click()
+
+      // do something with the file
+    }
+  }
+};
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
   body {
     margin: 0;
   }
@@ -26,10 +47,22 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    height: 100vh;
+    // height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+
+  img {
+    margin: 7px 0;
+  }
+
+  .upload-file {
+    display: none !important;
+  }
+
+  button {
+    width: 100%
   }
 </style>

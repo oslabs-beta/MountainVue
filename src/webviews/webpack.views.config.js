@@ -1,5 +1,6 @@
 const path = require('path');
 const { VueLoaderPlugin } = require('vue-loader');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, './pages/App.js'),
@@ -18,27 +19,26 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
-        use: [
-          {
-            loader: 'style-loader',
-          },
-          {
-            loader: 'css-loader',
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
-      },
-      {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
+      {
+        test: /\.vue\.(s?[ac]ss)$/,
+        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+      },
+      {
+        test: /(?<!\.vue)\.(s?[ac]ss)$/,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: ['file-loader'],
+      },
     ],
   },
-  plugins: [new VueLoaderPlugin()],
+  plugins: [
+    new VueLoaderPlugin()
+  ],
   resolve: {
     extensions: ['.ts', '.js', '.vue'],
   },

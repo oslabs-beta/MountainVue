@@ -2,7 +2,7 @@
   <div class="about">
     <h1>About</h1>
     <div class="team">
-      <Ryan />
+      <Ryan lastName="Lim" />
       <Matt />
       <Sohee />
       <Sean />
@@ -13,31 +13,24 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import Ryan from '@/components/team/Ryan.vue';
-import Matt from '@/components/team/Matt.vue';
-import Sohee from '@/components/team/Sohee.vue';
-import Sean from '@/components/team/Sean.vue';
-import Andy from '@/components/team/Andy.vue';
-import Uni from '@/components/team/Uni.vue';
-
 export default {
   name: 'About',
 
   components: {
-    Uni,
-    Andy,
-    Sean,
-    Matt,
-    Ryan,
-    Sohee
+    // @ is an alias to /src
+    Ryan: () => import('@/components/team/Ryan.vue'),
+    Matt: () => import('@/components/team/Matt.vue'),
+    Sohee: () => import('@/components/team/Sohee.vue'),
+    Sean: () => import('@/components/team/Sean.vue'),
+    Andy: () => import('@/components/team/Andy.vue'),
+    Uni: () => import('@/components/team/Uni.vue'),
   },
 
-  // props: {
-  //   linkedInUrl: {
-  //     type: String,
-  //   }
-  // }
+  props: {
+    lastName: {
+      type: String,
+    }
+  }
 };
 </script>
 
