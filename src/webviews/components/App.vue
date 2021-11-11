@@ -4,35 +4,50 @@
     <div class="upload-container">
       <input
         class="upload-file"
-        ref="file"
+        ref="inputFile"
         type="file"
         accept="application/JSON"
+        @change="handleUpload"
       >
-      <button @click="uploadFile()">Upload</button>
+      <button @click="fileUpload()">Upload</button>
     </div>
+    <tree :tree-data="tree"></tree>
   </div>
 </template>
 
 <script>
 import logo from '../img/logo.png';
+import Tree from "./Tree.vue";
 
-export default  {
+export default {
   name: 'App',
+
+  components: {
+    Tree
+  },
 
   data() {
     return {
       logo,
+      tree: {},
     }
   },
 
   methods: {
-    uploadFile() {
-      const uploadBtn = this.$refs.file;
-      uploadBtn.click()
+    fileUpload() {
+      const uploadBtn = this.$refs.inputFile;
+      uploadBtn.click();
+    },
 
-      // do something with the file
-    }
-  }
+    async handleUpload() {
+      const file = this.$refs.inputFile.files[0];
+
+      const response = await file.text();
+      const data = await JSON.parse(response);
+      
+      this.tree = data;
+    },
+  },
 };
 </script>
 
@@ -60,6 +75,10 @@ export default  {
 
   .upload-file {
     display: none !important;
+  }
+
+  .upload-container {
+    margin-bottom: 20px;
   }
 
   button {

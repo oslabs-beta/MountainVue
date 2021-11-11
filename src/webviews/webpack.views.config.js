@@ -24,11 +24,11 @@ module.exports = {
       },
       {
         test: /\.vue\.(s?[ac]ss)$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['vue-style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /(?<!\.vue)\.(s?[ac]ss)$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(png|jpe?g|gif)$/i,
