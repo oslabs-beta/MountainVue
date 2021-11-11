@@ -1,0 +1,34 @@
+ {
+  "name": "App.vue",
+  "children": [
+      {
+          "name": "Home.vue"
+      },
+      {
+          "name": "Docs.vue"
+      },
+      {
+          "name": "About.vue",
+          "children":[
+              {
+                  "name": "Ryan.vue"
+              },
+              {
+                  "name": "Matt.vue"
+              },
+              {
+                  "name": "Sohee.vue"
+              },
+              {
+                  "name": "Sean.vue"
+              },
+              {
+                  "name": "Andy.vue"
+              },
+              {
+                  "name": "Uni.vue"
+              }
+          ]
+      }
+  ]
+}
