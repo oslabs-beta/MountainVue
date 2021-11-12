@@ -45,7 +45,7 @@
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
-    "build": "concurrently \"webpack\" \"npm-run-all -p build:*\"",
+    "build": "concurrently \"cross-env NODE_ENV=development \" \"webpack\" \"npm-run-all -p build:*\"",
     "build:extension": "webpack --mode production",
     "build:sidebar": "webpack --config ./src/webviews/webpack.views.config.js",
     "watch": "webpack --watch",
@@ -69,6 +69,7 @@
     "@vscode/test-electron": "^1.6.2",
     "@vue/compiler-sfc": "^3.2.21",
     "concurrently": "^6.3.0",
+    "cross-env": "^7.0.3",
     "css-loader": "^6.5.1",
     "eslint": "^8.1.0",
     "file-loader": "^6.2.0",
@@ -95,6 +96,8 @@
   },
   "dependencies": {
     "core-js": "^3.19.1",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7",
     "register-service-worker": "^1.7.2",
     "vue": "^3.2.21"
   }
