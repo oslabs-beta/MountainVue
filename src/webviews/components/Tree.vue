@@ -1,8 +1,8 @@
 <template>
   <div class="tree">
-    <ul class="tree-list">
+    <div class="tree-list">
       <node-tree :node="treeData"></node-tree>
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -20,8 +20,11 @@ export default {
 </script>
 
 <style>
-.tree-list ul {
-  padding-left: 16px;
-  margin: 6px 0;
+.tree {
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 </style>
