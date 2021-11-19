@@ -2,7 +2,7 @@
   <div class="about">
     <h1>About</h1>
     <div class="team">
-      <Ryan lastName="Lim" />
+      <Ryan lastName="Lim" birthday="Oct 9" />
       <Matt lastName="Huang" />
       <Sohee lastName="Lee" />
       <Sean lastName="Lee" />
@@ -35,6 +35,9 @@ export default {
 
   props: {
     lastName: {
+      type: String,
+    },
+    birthday: {
       type: String,
     },
   },
