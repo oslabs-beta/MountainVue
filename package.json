@@ -7,9 +7,18 @@
 	"engines": {
 		"vscode": "^1.62.0"
 	},
-	"categories": [ "Visualization" ],
-	"keywords": [ "vue", "vs code extension", "component hierarchy", "devtools" ],
-	"activationEvents": [ "onStartupFinished" ],
+	"categories": [
+		"Visualization"
+	],
+	"keywords": [
+		"vue",
+		"vs code extension",
+		"component hierarchy",
+		"devtools"
+	],
+	"activationEvents": [
+		"onStartupFinished"
+	],
 	"main": "./dist/extension.js",
 	"contributes": {
 		"viewsContainers": {
@@ -87,6 +96,7 @@
 	},
 	"dependencies": {
 		"core-js": "^3.19.1",
+		"esprima": "^4.0.1",
 		"fs": "^0.0.1-security",
 		"path": "^0.12.7",
 		"register-service-worker": "^1.7.2",

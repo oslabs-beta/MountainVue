@@ -20,6 +20,7 @@ import logo from "../img/logo.png";
 import Tree from "./Tree.vue";
 
 import * as compiler from "vue-template-compiler";
+import * as esprima from "esprima";
 
 export default {
   name: "App",
@@ -43,17 +44,35 @@ export default {
 
     async handleUpload() {
       const file = this.$refs.inputFile.files[0];
-
       const response = await file.text();
-      const template = response.split("<style>")[0];
-      console.log("template: ", template);
-      const regex = new RegExp("(?<=<template>)(.*)(?=</template>)", "s");
-      console.log("regex: ", regex);
-      const data = template.match(regex);
-      // console.log("data0: ", data[0]);
-      // console.log("data1: ", data[1]);
-      const compiled = compiler.compile(data[0]);
-      console.log("compiled: ", compiled);
+      return this.parseUpload(response);
+    },
+
+    parseUpload(res) {
+      const script = compiler.parseComponent(res).script;
+      const tree = esprima.parseModule(script.content);
+      const exportsType = "ExportDefaultDeclaration";
+      const exportsOutput = tree.body.find(({ type }) => type === exportsType);
+      // console.log('exportsOutput: ', exportsOutput);
+      const findProp = (props, name) =>
+        props.find((prop) => prop.key.name == name);
+      const declProps = exportsOutput.declaration.properties;
+      // console.log('decl: ', declProps);
+      const safe = (func, def) => (value) =>
+        value == undefined ? def : func(value);
+      const compValues = (comps) =>
+        comps.value.properties.map((prop) => prop.key.name);
+      const components = safe(
+        compValues,
+        []
+      )(findProp(declProps, "components"));
+      console.log("components: ", components);
+
+      // Below are not logging in console
+      const propElems = (props) =>
+        props.value.elements.map((element) => element.value);
+      const props = safe(propElems, [])(findProp(declProps, "props"));
+      console.log("props: ", props);
 
       // END GOAL:
       // this.tree = data;
@@ -63,8 +82,6 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap");
-
 body {
   margin: 0;
 }
