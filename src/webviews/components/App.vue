@@ -1,41 +1,38 @@
 <template>
   <div class="app-container">
-    <img 
-      class="logo"
-      :src="logo"
-    />
+    <img class="logo" :src="logo" />
     <div class="upload-container">
       <input
         class="upload-file"
         ref="inputFile"
         type="file"
-        accept="application/JSON"
+        accept=".vue"
         @change="handleUpload"
-      >
-      <button
-        class="upload-btn"
-        @click="fileUpload()">UPLOAD</button>
+      />
+      <button class="upload-btn" @click="fileUpload()">UPLOAD</button>
     </div>
     <tree :tree-data="tree"></tree>
   </div>
 </template>
 
 <script>
-import logo from '../img/logo.png';
+import logo from "../img/logo.png";
 import Tree from "./Tree.vue";
 
+import * as compiler from "vue-template-compiler";
+
 export default {
-  name: 'App',
+  name: "App",
 
   components: {
-    Tree
+    Tree,
   },
 
   data() {
     return {
       logo,
       tree: {},
-    }
+    };
   },
 
   methods: {
@@ -48,30 +45,38 @@ export default {
       const file = this.$refs.inputFile.files[0];
 
       const response = await file.text();
-      const data = await JSON.parse(response);
-      
-      this.tree = data;
+      const template = response.split("<style>")[0];
+      console.log("template: ", template);
+      const regex = new RegExp("(?<=<template>)(.*)(?=</template>)", "s");
+      console.log("regex: ", regex);
+      const data = template.match(regex);
+      // console.log("data0: ", data[0]);
+      // console.log("data1: ", data[1]);
+      const compiled = compiler.compile(data[0]);
+      console.log("compiled: ", compiled);
+
+      // END GOAL:
+      // this.tree = data;
     },
   },
 };
 </script>
 
-<style lang="scss">
-@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap');
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Oxygen:wght@700&display=swap");
 
 body {
   margin: 0;
 }
 
 #app {
-  font-family: 'Oxygen', sans-serif;
+  font-family: "Oxygen", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 700 !important;
   font-size: 13px;
   text-align: center;
   color: #2c3e50;
-  // height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -95,7 +100,7 @@ body {
 }
 
 .upload-btn {
-  font-family: 'Oxygen', sans-serif;
+  font-family: "Oxygen", sans-serif;
   font-weight: 700 !important;
   font-size: 11px;
   width: 50%;
