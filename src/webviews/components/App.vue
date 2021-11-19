@@ -16,14 +16,16 @@
 </template>
 
 <script>
-import logo from "../img/logo.png";
-import Tree from "./Tree.vue";
+import logo from '../img/logo.png';
+import Tree from './Tree.vue';
+import { safe, compValues, findProp, propElems } from '../helpers/parserHelpers';
 
-import * as compiler from "vue-template-compiler";
-import * as esprima from "esprima";
+// Dependencies for parsing upload
+import * as compiler from 'vue-template-compiler';
+import * as esprima from 'esprima';
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     Tree,
@@ -37,42 +39,37 @@ export default {
   },
 
   methods: {
+    // Event handler for mimicking input click
     fileUpload() {
       const uploadBtn = this.$refs.inputFile;
       uploadBtn.click();
     },
 
+    // Convert uploaded component to string
     async handleUpload() {
       const file = this.$refs.inputFile.files[0];
       const response = await file.text();
-      return this.parseUpload(response);
+      return this.parser(response);
     },
 
-    parseUpload(res) {
+    // Parse component string to identify children and props
+    parser(res) {
+      // Using modules to generate AST
       const script = compiler.parseComponent(res).script;
       const tree = esprima.parseModule(script.content);
-      const exportsType = "ExportDefaultDeclaration";
-      const exportsOutput = tree.body.find(({ type }) => type === exportsType);
-      // console.log('exportsOutput: ', exportsOutput);
-      const findProp = (props, name) =>
-        props.find((prop) => prop.key.name == name);
+      console.log('tree: ', tree);
+      
+      // Retrieving body, its props, and children comps of SFC
+      const exportsOutput = tree.body.find(({ type }) => type === 'ExportDefaultDeclaration');
+      console.log('exportsOutput: ', exportsOutput);
       const declProps = exportsOutput.declaration.properties;
-      // console.log('decl: ', declProps);
-      const safe = (func, def) => (value) =>
-        value == undefined ? def : func(value);
-      const compValues = (comps) =>
-        comps.value.properties.map((prop) => prop.key.name);
-      const components = safe(
-        compValues,
-        []
-      )(findProp(declProps, "components"));
-      console.log("components: ", components);
+      console.log('declProps: ', declProps);
+      const children = safe(compValues, [])(findProp(declProps, 'components'));
+      console.log('children: ', children);
 
       // Below are not logging in console
-      const propElems = (props) =>
-        props.value.elements.map((element) => element.value);
-      const props = safe(propElems, [])(findProp(declProps, "props"));
-      console.log("props: ", props);
+      const props = safe(propElems, [])(findProp(declProps, 'props'));
+      console.log('props: ', props);
 
       // END GOAL:
       // this.tree = data;
@@ -81,13 +78,13 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss">
 body {
   margin: 0;
 }
 
 #app {
-  font-family: "Oxygen", sans-serif;
+  font-family: 'Oxygen', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 700 !important;
@@ -117,7 +114,7 @@ body {
 }
 
 .upload-btn {
-  font-family: "Oxygen", sans-serif;
+  font-family: 'Oxygen', sans-serif;
   font-weight: 700 !important;
   font-size: 11px;
   width: 50%;
