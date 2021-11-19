@@ -3,34 +3,28 @@
     <h1>About</h1>
     <div class="team">
       <Ryan lastName="Lim" />
-      <Matt />
-      <Sohee />
-      <Sean />
-      <Andy />
-      <Uni />
+      <Matt lastName="Huang" />
+      <Sohee lastName="Lee" />
+      <Sean lastName="Lee" />
+      <Andy lastName="Tsou" />
+      <Uni lastName="Lee" />
     </div>
   </div>
 </template>
 
 <script>
-import Ryan from "@/components/team/Ryan.vue";
-import Matt from "@/components/team/Matt.vue";
-import Sohee from "@/components/team/Sohee.vue";
-import Sean from "@/components/team/Sean.vue";
-import Andy from "@/components/team/Andy.vue";
-import Uni from "@/components/team/Uni.vue";
+// @ is an alias for ~/src/webviews
+import Ryan from '@/components/team/Ryan.vue';
+import Matt from '@/components/team/Matt.vue';
+import Sohee from '@/components/team/Sohee.vue';
+import Sean from '@/components/team/Sean.vue';
+import Andy from '@/components/team/Andy.vue';
+import Uni from '@/components/team/Uni.vue';
 
 export default {
-  name: "About",
+  name: 'About',
 
   components: {
-    // @ is an alias to /src
-    // Ryan: () => import("@/components/team/Ryan.vue"),
-    // Matt: () => import("@/components/team/Matt.vue"),
-    // Sohee: () => import("@/components/team/Sohee.vue"),
-    // Sean: () => import("@/components/team/Sean.vue"),
-    // Andy: () => import("@/components/team/Andy.vue"),
-    // Uni: () => import("@/components/team/Uni.vue"),
     Ryan,
     Matt,
     Sohee,
@@ -47,7 +41,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang='scss' scoped>
 .team {
   display: flex;
   flex-direction: row;
