@@ -18,7 +18,12 @@
 <script>
 import logo from '../img/logo.png';
 import Tree from './Tree.vue';
-import { safe, compValues, findProp, propElems } from '../helpers/parserHelpers';
+import {
+  safe,
+  compValues,
+  findCompOrProp,
+  propElems,
+} from '../helpers/parserHelpers';
 
 // Dependencies for parsing upload
 import * as compiler from 'vue-template-compiler';
@@ -49,31 +54,35 @@ export default {
     async handleUpload() {
       const file = this.$refs.inputFile.files[0];
       const response = await file.text();
-      return this.parser(response);
+      return this.MVParser(response);
     },
 
     // Parse component string to identify children and props
-    parser(res) {
+    MVParser(res) {
       // Using modules to generate AST
       const script = compiler.parseComponent(res).script;
-      const tree = esprima.parseModule(script.content);
-      console.log('tree: ', tree);
-      
-      // Retrieving body, its props, and children comps of SFC
-      const exportsOutput = tree.body.find(({ type }) => type === 'ExportDefaultDeclaration');
-      console.log('exportsOutput: ', exportsOutput);
-      const declProps = exportsOutput.declaration.properties;
-      console.log('declProps: ', declProps);
-      const children = safe(compValues, [])(findProp(declProps, 'components'));
-      console.log('children: ', children);
+      const ast = esprima.parseModule(script.content);
+      console.log('ast: ', ast);
 
-      // Below are not logging in console
-      const props = safe(propElems, [])(findProp(declProps, 'props'));
+      // Retrieving body, its props, and children comps of SFC
+      const exportsOutput = ast.body.find(({ type }) => type === 'ExportDefaultDeclaration');
+      const declProps = exportsOutput.declaration.properties;
+
+      // Returns array of child components
+      const children = safe(compValues, [])(findCompOrProp(declProps, 'components'));
+
+      // Returns array of props in SFC
+      const props = safe(propElems, [])(findCompOrProp(declProps, 'props'));
+
+      return this.superAwesomeTreeGenerator3000(children, props);
+    },
+
+    superAwesomeTreeGenerator3000(children, props) {
+      console.log('children: ', children);
       console.log('props: ', props);
 
-      // END GOAL:
-      // this.tree = data;
-    },
+      // Recursively build data structure (tree)
+    }
   },
 };
 </script>
