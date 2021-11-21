@@ -1,5 +1,5 @@
 // generates unique ID
-export function getNonce() {
+const getNonce = () => {
   let text = "";
   const possible =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -8,3 +8,5 @@ export function getNonce() {
   }
   return text;
 };
+
+export default getNonce;

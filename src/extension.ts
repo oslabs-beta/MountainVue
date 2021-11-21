@@ -7,7 +7,7 @@ export const activate = (context: vscode.ExtensionContext) => {
   const sidebarProvider = new SidebarProvider(context.extensionUri);
 
   context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider("mv-sidebar", sidebarProvider)
+		vscode.window.registerWebviewViewProvider('mv-sidebar', sidebarProvider)
   );
 };
 

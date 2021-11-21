@@ -1,0 +1,64 @@
+{
+    "name": "App.vue",
+    "children": [
+        {
+            "name": "Home.vue",
+            "children": [
+                {
+                    "name": "Navbar.vue"
+                },
+                {
+                    "name": "Splash.vue"
+                },
+                {
+                    "name": "ComingSoon.vue"
+                }
+            ]
+        },
+        {
+            "name": "About.vue",
+            "children": [
+                {
+                    "name": "Installation.vue",
+                    "children": [
+                        {
+                            "name": "Directions.vue"
+                        }
+                    ]
+                },
+                {
+                    "name": "Usage.vue"
+                },
+                {
+                    "name": "Contributions.vue"
+                },
+                {
+                    "name": "Acknowledgements.vue"
+                }
+            ]
+        },
+        {
+            "name": "Team.vue",
+            "children": [
+                {
+                    "name": "Ryan.vue"
+                },
+                {
+                    "name": "Matt.vue"
+                },
+                {
+                    "name": "Sohee.vue"
+                },
+                {
+                    "name": "Sean.vue"
+                },
+                {
+                    "name": "Andy.vue"
+                },
+                {
+                    "name": "Uni.vue"
+                }
+            ]
+        }
+    ]
+}
