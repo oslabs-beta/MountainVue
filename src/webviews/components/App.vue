@@ -6,40 +6,41 @@
         class="upload-file"
         ref="inputFile"
         type="file"
-        accept=".vue"
+        accept="application/JSON"
         @change="handleUpload"
+        value=""
       />
-      <button class="upload-btn" @click="fileUpload()">UPLOAD</button>
+      <button
+        class="upload-btn"
+        @click="fileUpload()"
+      >
+        UPLOAD
+      </button>
     </div>
-    <tree :tree-data="tree"></tree>
+    <MVTree
+      :treeDisplay="setDisplay"
+      :node="tree"
+      @onClick="viewComponent"
+    />
   </div>
 </template>
 
 <script>
 import logo from '../img/logo.png';
-import Tree from './Tree.vue';
-import {
-  safe,
-  compValues,
-  findCompOrProp,
-  propElems,
-} from '../helpers/parserHelpers';
-
-// Dependencies for parsing upload
-import * as compiler from 'vue-template-compiler';
-import * as esprima from 'esprima';
+import MVTree from './MVTree.vue';
 
 export default {
   name: 'App',
 
   components: {
-    Tree,
+    MVTree,
   },
 
   data() {
     return {
       logo,
       tree: {},
+      setDisplay: 'none',
     };
   },
 
@@ -49,39 +50,31 @@ export default {
       const uploadBtn = this.$refs.inputFile;
       uploadBtn.click();
     },
-
+    
     // Convert uploaded component to string
     async handleUpload() {
       const file = this.$refs.inputFile.files[0];
+
       const response = await file.text();
-      return this.MVParser(response);
+      const data = await JSON.parse(response);
+
+      this.tree = data;
+      this.setDisplay = 'block';
+      this.$refs.inputFile.value = '';
+      // * Dispatcher for parsing logic in extension environment using TS - BETA
+      // const filePath = this.$refs.inputFile.files[0].path;
+      // if (filePath) {
+      //   tsvscode.postMessage({
+      //     type: 'onFile',
+      //     value: filePath
+      //   })
+      // }
+      // return this.parser(response);
     },
 
-    // Parse component string to identify children and props
-    MVParser(res) {
-      // Using modules to generate AST
-      const script = compiler.parseComponent(res).script;
-      const ast = esprima.parseModule(script.content);
-      console.log('ast: ', ast);
-
-      // Retrieving body, its props, and children comps of SFC
-      const exportsOutput = ast.body.find(({ type }) => type === 'ExportDefaultDeclaration');
-      const declProps = exportsOutput.declaration.properties;
-
-      // Returns array of child components
-      const children = safe(compValues, [])(findCompOrProp(declProps, 'components'));
-
-      // Returns array of props in SFC
-      const props = safe(propElems, [])(findCompOrProp(declProps, 'props'));
-
-      return this.superAwesomeTreeGenerator3000(children, props);
-    },
-
-    superAwesomeTreeGenerator3000(children, props) {
-      console.log('children: ', children);
-      console.log('props: ', props);
-
-      // Recursively build data structure (tree)
+    // * TO-DO: Open clicked component in tree in new tab
+    viewComponent(node) {
+      console.log(`Clicked on ${node.name}!`);
     }
   },
 };
@@ -97,9 +90,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-weight: 700 !important;
-  font-size: 13px;
+  font-size: 11px;
   text-align: center;
-  color: #2c3e50;
+  color: whitesmoke;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -126,6 +119,6 @@ body {
   font-family: 'Oxygen', sans-serif;
   font-weight: 700 !important;
   font-size: 11px;
-  width: 50%;
+  width: 46%;
 }
 </style>

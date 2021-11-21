@@ -3,7 +3,7 @@
 'use strict';
 
 const path = require('path');
-
+const { VueLoaderPlugin } = require('vue-loader');
 //@ts-check
 /** @typedef {import('webpack').Configuration} WebpackConfig **/
 

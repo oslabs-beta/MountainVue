@@ -1,12 +1,23 @@
-import * as vscode from "vscode";
-import { getNonce } from "./getNonce";
-
+import * as vscode from 'vscode';
+import getNonce from './getNonce';
+// import MVParser from './MVParser';
+import Tree from './types/Tree';
 export class SidebarProvider implements vscode.WebviewViewProvider {
-  // public static readonly viewType = 'mv-sidebar';
-
   _view?: vscode.WebviewView;
+  // parser: MVParser | undefined;
+  // private readonly context: vscode.ExtensionContext;
 
-  constructor(private readonly _extensionUri: vscode.Uri) { }
+  constructor(private readonly _extensionUri: vscode.Uri) {
+    // this.context = context;
+    // this._extensionUri = context.extensionUri;
+    
+    // const state: Tree | undefined = context.workspaceState.get('mountainvue');
+
+    // Parsing logic in progress
+    // if (state) {
+    //   this.parser = new MVParser(state.filePath);
+    // }
+  }
 
   public resolveWebviewView(webviewView: vscode.WebviewView) {
     this._view = webviewView;
@@ -21,6 +32,22 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
     };
 
     webviewView.webview.html = this._getHtmlForWebview(webviewView.webview);
+
+    // Extension reducer in progress
+    // webviewView.webview.onDidReceiveMessage(async (data) => {
+    //   switch (data.type) {
+    //     case 'onFile': {
+    //       if (!data.type) {
+    //         return;
+    //       }
+
+    //       this.parser = new MVParser(data.value);
+    //       this.parser.parse();
+    //       // this.updateView();
+    //       break;
+    //     }
+    //   }
+    // });
   }
 
   public revive(panel: vscode.WebviewView) {
@@ -30,22 +57,22 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
   private _getHtmlForWebview(webview: vscode.Webview) {
     const styleResetUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._extensionUri, "media", "reset.css")
+        this._extensionUri, 'media', 'reset.css')
     );
 
     const styleVSCodeUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._extensionUri, "media", "vscode.css")
+        this._extensionUri, 'media', 'vscode.css')
     );
 
     // const styleMainUri = webview.asWebviewUri(
     //   vscode.Uri.joinPath(
-    //     this._extensionUri, "dist", "style.css")
+    //     this._extensionUri, 'dist', 'style.css')
     // );
 
     const scriptUri = webview.asWebviewUri(
       vscode.Uri.joinPath(
-        this._extensionUri, "dist", "app.js")
+        this._extensionUri, 'dist', 'app.js')
     );
 
     const nonce = getNonce();
@@ -67,7 +94,7 @@ export class SidebarProvider implements vscode.WebviewViewProvider {
         
         <title>MV</title>
         <script nonce="${nonce}">
-            const vscode = acquireVsCodeApi();
+          const tsvscode = acquireVsCodeApi();
         </script>
       </head>
         <body>
