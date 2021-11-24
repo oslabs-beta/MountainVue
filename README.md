@@ -109,13 +109,13 @@ MountainVue's goal is to extend reach to larger user base that specializes in Vu
 2. Click upload button to select an entry point with a .vue file.
 <br/>
 <br/>
-<img src="./website/src/assets/Upload.gif" alt="Logo" >
+<img src="./media/gifs/Upload.gif" alt="Logo" >
 
 
 <br/>
 3. The sidebar will now display a component tree.
 <br/>
-<img src="./website/src/assets/Tree.gif" alt="Logo" >
+<img src="./media/gifs/Tree.gif" alt="Logo" >
 
 
 
