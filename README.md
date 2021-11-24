@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/oslabs-beta/MountainVue">
+  <a href="https://mountainvue.app/" target="_blank">
     <img src="./media/mv-logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -192,7 +192,7 @@ Sohee Lee - [@sohee419](https://github.com/sohee419)
 
 Andy Tsou - [@andytsou19](https://github.com/andytsou19) 
 
-Project Link: [https://github.com/oslabs-beta/MountainVue](https://github.com/oslabs-beta/MountainVue)
+Website: [MountainVue.app](https://mountainvue.app/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
