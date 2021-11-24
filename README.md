@@ -22,7 +22,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/oslabs-beta/MountainVue">
-    <img src="./website/src/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="./media/mv-logo.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">MountainVue</h3>
