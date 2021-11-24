@@ -21,7 +21,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://mountainvue.app/" target="_blank">
+  <a href="https://mountainvue.app/" rel="noopener noreferrer" target="_blank">
     <img src="./media/mv-logo.png" alt="Logo" width="80" height="80">
   </a>
 
