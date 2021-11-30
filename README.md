@@ -146,7 +146,7 @@ _For more examples, please refer to the [Documentation](https://github.com/oslab
     - [ ] Chinese
 
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/oslabs-beta/MountainVue/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
